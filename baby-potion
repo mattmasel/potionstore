@@ -16,6 +16,6 @@ sudo apt install zsh -y
 sudo apt install tmux seclists
 
 # Download auxillary tools and scripts from git
-cd ~ && mkdir Potionstore && mkdir Potionstore/tools && cd Potionstore/tools
+cd ~ && mkdir -p Potionstore/tools && cd Potionstore/tools
 # git clone https://github.com/mattmasel/HACKZORTOOLS
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
