@@ -8,14 +8,14 @@ echo 'export PS1="-[\[$(tput sgr0)\]\[\033[38;5;10m\]\d\[$(tput sgr0)\]-\[$(tput
 
 # [OPTIONAL] Install zsh and add time / date to prompt
 sudo apt install zsh -y
-cd ~
-echo 'PROMPT="[%n💀%m]:[%~]⮐"
-RPROMPT="[%*]:[%W]"' >> ~.zshrc
+#cd ~
+#echo 'PROMPT="[%n💀%m]:[%~]⮐"
+#RPROMPT="[%*]:[%W]"' >> .zshrc
 
 # Install additional packages
 sudo apt install tmux seclists
 
 # Download auxillary tools and scripts from git
-cd ~ && mkdir Potionstore && mkdir Potionstore/tools && cd Potionstore/Tools
+cd ~ && mkdir Potionstore && mkdir Potionstore/tools && cd Potionstore/tools
 # git clone https://github.com/mattmasel/HACKZORTOOLS
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
