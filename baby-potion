@@ -1,14 +1,5 @@
 #!/bin/bash
 
-echo '             _   _                 _                 
-            | | (_)               | |                
- _ __   ___ | |_ _  ___  _ __  ___| |_ ___  _ __ ___ 
-| '_ \ / _ \| __| |/ _ \| '_ \/ __| __/ _ \| '__/ _ \
-| |_) | (_) | |_| | (_) | | | \__ \ || (_) | | |  __/
-| .__/ \___/ \__|_|\___/|_| |_|___/\__\___/|_|  \___|
-| |                                                  
-|_|              '
-
 # Update base packages
 sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
@@ -17,6 +8,7 @@ echo 'export PS1="-[\[$(tput sgr0)\]\[\033[38;5;10m\]\d\[$(tput sgr0)\]-\[$(tput
 
 # [OPTIONAL] Install zsh and add time / date to prompt
 sudo apt install zsh -y
+cd ~
 echo 'PROMPT="[%n💀%m]:[%~]⮐"
 RPROMPT="[%*]:[%W]"' >> ~.zshrc
 
@@ -24,6 +16,6 @@ RPROMPT="[%*]:[%W]"' >> ~.zshrc
 sudo apt install tmux seclists
 
 # Download auxillary tools and scripts from git
-mkdir Tools && cd Tools
+cd ~ && mkdir Potionstore && mkdir Potionstore/tools && cd Potionstore/Tools
 # git clone https://github.com/mattmasel/HACKZORTOOLS
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
