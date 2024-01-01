@@ -23,7 +23,7 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 # Add Tools directory if doesnt exist and cd
-tools_directory="~/Tools"
+tools_directory=~/Tools
 
 echo "[+] Checking if $tools_directory exists"
 
