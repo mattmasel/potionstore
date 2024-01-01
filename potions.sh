@@ -66,7 +66,7 @@ if ! which go &> /dev/null; then
 
     echo "[+] Extracting ${target_version}"
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$target_version"
-    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && source ~/.bashrc
+    echo 'export PATH=$PATH:/usr/local/go/bin:~/go/bin' >> ~/.bashrc && source ~/.bashrc
     rm "$target_version"
 
     if go version; then
