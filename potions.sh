@@ -8,12 +8,13 @@ sudo apt upgrade -y
 
 # Install APT packages not available on github
 echo "[+] Installing APT packages"
-install="sudo apt install"
+install="sudo apt-get install"
 
 $install curl -y
 $install vim -y
 $install jq -y
 $install python3-pip -y
+$install nmap -y
 $install git -y
 $install firefox-esr -y
 
@@ -86,17 +87,33 @@ else
 fi
 
 # Install GitHub Tools
+cd ~/Tools
 
+echo "[+] Installing sqlmap"
+git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+echo "[+] done"
 
+echo "[+] Installing seclists"
+git clone https://github.com/danielmiessler/SecLists.git
+echo "[+] done"
 
 # Install Go Tools
 
 echo "[+] Installing ffuf"
-if go install github.com/ffuf/ffuf/v2@latest; then
+if ! which ffuf &> /dev/null; then
+    go install github.com/ffuf/ffuf/v2@latest; then
     echo "[+] done"
 else
-    echo "[!] Error installing ffuf"
-fi 
+    echo "[!] Ffuf already installed"
+fi
+
+echo "[+] Installing subfinder"
+if ! which subfinder &> /dev/null; then
+    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+    echo "[+] done"
+else
+    echo "[+] Subfinder already installed"
+fi
 
 # Install Closed Source Programs
 
