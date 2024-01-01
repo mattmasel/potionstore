@@ -87,7 +87,7 @@ else
 fi
 
 # Install GitHub Tools
-cd ~/Tools
+cd "$tools_directory"
 
 echo "[+] Installing sqlmap"
 git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
@@ -96,6 +96,13 @@ echo "[+] done"
 echo "[+] Installing seclists"
 git clone https://github.com/danielmiessler/SecLists.git
 echo "[+] done"
+
+echo "[+] Installing dcode"
+git clone https://github.com/UltimateHackers/Decodify
+cd Decodify
+make install
+echo "[+] done"
+cd "$tools_directory"
 
 # Install Go Tools
 
