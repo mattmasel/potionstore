@@ -38,41 +38,45 @@ cd "$tools_directory"
 
 # Install Go
 
-echo "[+] Downloading go"
-url="https://go.dev/dl/"
-main_page_content=$(curl -s "$url")
+if ! which go &> /dev/null; then
+    echo "[+] Downloading go"
+    url="https://go.dev/dl/"
+    main_page_content=$(curl -s "$url")
 
-target_version=$(echo "$main_page_content" | pup 'a[href*=".linux-amd64.tar.gz"] attr{href}' | sed -n '2p' | sed 's|/dl/||')
-go_download_link="${url}${target_version}"
+    target_version=$(echo "$main_page_content" | pup 'a[href*=".linux-amd64.tar.gz"] attr{href}' | sed -n '2p' | sed 's|/dl/||')
+    go_download_link="${url}${target_version}"
 
-echo "Download URL: $go_download_link"
-wget "$go_download_link"
+    echo "Download URL: $go_download_link"
+    wget "$go_download_link"
 
-# Extract checksum from the tt tag, may need to modify which tt tag if errors occur
-checksums=$(echo "$main_page_content" | pup 'tt text{}')
-checksum=$(echo "$checksums" | sed -n '7p')
+    # Extract checksum from the tt tag, may need to modify which tt tag if errors occur
+    checksums=$(echo "$main_page_content" | pup 'tt text{}')
+    checksum=$(echo "$checksums" | sed -n '7p')
 
-file_checksum=$(sha256sum $target_version | awk '{print $1}')
-echo "$checksum"
-echo "$file_checksum"
+    file_checksum=$(sha256sum $target_version | awk '{print $1}')
+    echo "$checksum"
+    echo "$file_checksum"
 
-if [ "$file_checksum" == "$checksum" ]; then
-    echo "[+] Checksum verification success"
+    if [ "$file_checksum" == "$checksum" ]; then
+        echo "[+] Checksum verification success"
+    else
+        echo "[!] Checksum verification failed. Exiting."
+        exit 1
+    fi
+
+    echo "[+] Extracting ${target_version}"
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$target_version"
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && source ~/.bashrc
+    rm "$target_version"
+
+    if go version; then
+        echo "[+] go installed successfully"
+    else
+        echo "[!] go installation failed"
+        exit 1
+    fi
 else
-    echo "[!] Checksum verification failed. Exiting."
-    exit 1
-fi
-
-echo "[+] Extracting ${target_version}"
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$target_version"
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && source ~/.bashrc
-rm "$target_version"
-
-if go version; then
-	echo "[+] go installed successfully"
-else
-	echo "[!] go installation failed"
-	exit 1
+    echo "[!] Go already installed"
 fi
 
 # Install GitHub Tools
