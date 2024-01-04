@@ -10,13 +10,14 @@ sudo apt upgrade -y
 echo "[+] Installing APT packages"
 install="sudo apt-get install"
 
-$install curl -y
-$install vim -y
-$install jq -y
-$install python3-pip -y
-$install nmap -y
-$install git -y
-$install firefox-esr -y
+$install -y curl
+$install -y vim
+$install -y jq
+$install -y python3-pip
+$install -y nmap
+$install -y git
+$install -y firefox-esr
+$install -y hashcat
 
 # Cleanup APT
 echo "[+] Cleaning up APT installs"
