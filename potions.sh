@@ -29,7 +29,7 @@ $install python3-pip
 $install nmap
 $install git
 $install firefox-esr
-$install ashcat
+$install hashcat
 
 # Cleanup packages
 if "$package_manager" == "apt"; then
