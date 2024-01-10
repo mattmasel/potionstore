@@ -1,28 +1,45 @@
 #!/bin/bash
 # My potions are too strong for you traveller...
 
-# Update APT repo and Upgrade
+# Check for linux distro
 echo "[+] Starting update and upgrade"
-sudo apt update
-sudo apt upgrade -y
 
-# Install APT packages not available on github
-echo "[+] Installing APT packages"
-install="sudo apt-get install"
+if apt --version &> /dev/null; then
+    package_manager="apt"
+    install="sudo apt-get install -y"
+    # Update APT repo and Upgrade
+    sudo apt update
+    sudo apt upgrade -y
+    # Install APT packages not available on github
+    echo "[+] Installing APT packages"
+elif pacman --version &> /dev/null; then
+    package_manager="pacman"
+    install="sudo pacman -S --noconfirm"
+    sudo pacman -Syyu --noconfirm
+    echo "[+] Installing Pacman packages"
+else
+    echo "[!] Package manager not detected"
+    exit 1
+fi
 
-$install -y curl
-$install -y vim
-$install -y jq
-$install -y python3-pip
-$install -y nmap
-$install -y git
-$install -y firefox-esr
-$install -y hashcat
+$install curl
+$install vim
+$install jq
+$install python3-pip
+$install nmap
+$install git
+$install firefox-esr
+$install ashcat
 
-# Cleanup APT
-echo "[+] Cleaning up APT installs"
-sudo apt autoremove -y
-sudo apt autoclean
+# Cleanup packages
+if "$package_manager" == "apt"; then
+    echo "[+] Cleaning up apt packages"
+    sudo apt autoremove -y
+    sudo apt autoclean
+elif "$package_manager" == "pacman"; then
+    echo "[+] Cleaning up pacman packages"
+    sudo pacman -Sc --noconfirm
+fi
 
 # Add Tools directory if doesnt exist and cd
 tools_directory=~/Tools
@@ -95,6 +112,7 @@ git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
 echo "[+] done"
 
 echo "[+] Installing seclists"
+echo "[!] This may take some time..."
 git clone https://github.com/danielmiessler/SecLists.git
 echo "[+] done"
 
@@ -109,7 +127,7 @@ cd "$tools_directory"
 
 echo "[+] Installing ffuf"
 if ! which ffuf &> /dev/null; then
-    go install github.com/ffuf/ffuf/v2@latest; then
+    go install github.com/ffuf/ffuf/v2@latest
     echo "[+] done"
 else
     echo "[!] Ffuf already installed"
