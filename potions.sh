@@ -23,6 +23,8 @@ else
 fi
 
 $install curl
+$install wget
+$install pup
 $install vim
 $install jq
 $install python3-pip
