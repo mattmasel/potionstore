@@ -34,11 +34,11 @@ $install firefox-esr
 $install hashcat
 
 # Cleanup packages
-if "$package_manager" == "apt"; then
+if [ "$package_manager" == "apt" ]; then
     echo "[+] Cleaning up apt packages"
     sudo apt autoremove -y
     sudo apt autoclean
-elif "$package_manager" == "pacman"; then
+elif [ "$package_manager" == "pacman" ]; then
     echo "[+] Cleaning up pacman packages"
     sudo pacman -Sc --noconfirm
 fi
