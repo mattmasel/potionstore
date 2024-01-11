@@ -2,6 +2,8 @@
 
 Installation script containing **tools** for web application penetration testing.  
 
+Currently supports APT and PACMAN package managers only
+
 ## Usage: `potions.sh`
 
 1. Download 
