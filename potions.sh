@@ -109,21 +109,32 @@ fi
 cd "$tools_directory"
 
 echo "[+] Installing sqlmap"
-git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
-echo "[+] done"
+if ls sqlmap-dev &> /dev/null; then
+    echo "[!] sqlmap already installed"
+else
+    git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+    echo "[+] done"
+fi
 
 echo "[+] Installing seclists"
-echo "[!] This may take some time..."
-git clone https://github.com/danielmiessler/SecLists.git
-echo "[+] done"
+if ls SecLists &> /dev/null; then
+    echo "[!] SecLists already installed"
+else
+    echo "[!] This may take some time..."
+    git clone https://github.com/danielmiessler/SecLists.git
+    echo "[+] done"
+fi
 
 echo "[+] Installing dcode"
-git clone https://github.com/UltimateHackers/Decodify
-cd Decodify
-make install
-echo "[+] done"
-cd "$tools_directory"
-
+if ls Decodify &> /dev/null; then
+    echo "[!] Decodify already installed"
+else
+    git clone https://github.com/UltimateHackers/Decodify
+    cd Decodify
+    make install
+    echo "[+] done"
+    cd "$tools_directory"
+fi
 # Install Go Tools
 
 echo "[+] Installing ffuf"
