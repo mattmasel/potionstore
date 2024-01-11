@@ -89,10 +89,9 @@ if ! which go &> /dev/null; then
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$target_version"
 
     # Setup Paths for go
-    echo 'export GOROOT=/usr/local/go/bin' >> ~/.bashrc
-    echo 'export GOPATH=~/go' >> ~/.bashrc
-    echo 'export GOBIN=$GOPATH/bin' >> ~/.bashrc
-    echo 'export PATH=$PATH:$GOROOT:$GOBIN' >> ~/.bashrc
+    echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
+    echo 'export GOPATH=$HOME/go' >> ~/.bashrc
+    echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.bashrc
     source ~/.bashrc
     rm "$target_version"
 
